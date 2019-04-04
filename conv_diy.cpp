@@ -15,13 +15,36 @@ int your_conv( cv::Mat src,
     int kernel_height = kernel.rows;
     int kernel_width = kernel.cols;
 
-    int dst_height;
-    int dst_width;
+    int dst_height = ((src_height-kernel_height+2*padding) / stride)+1;
+    int dst_width  = ((src_width-kernel_width+2*padding) / stride)+1;
 
     // src.ptr<unsigned char>(i)[ calculate INDEX ]
 
-    // MAKE YOUR OWN CONVOLUTION PROCESS
 
+    // MAKE YOUR OWN CONVOLUTION PROCESS
+	for(int i =0; i<dst_width; i=i+3){
+	    for(int j=0; j<dst_height; j++){
+		cv::Mat R<int>(i,j) = src_height[i][j]*kernel[j][i/3]
+		}
+	}
+
+	for(int i =1; i<dst_width; i=i+3){
+	    for(int j=0; j<dst_height; j++){
+		cv::Mat G<int>(i,j) = src_height[i][j]*kernel[j][i/3+1]
+		}
+	}
+
+	for(int i =2; i<dst_width; i=i+3){
+	    for(int j=0; j<dst_height; j++){
+		cv::Mat B<int>(i,j) = src_height[i][j]*kernel[j][i/3+2]
+		}
+	}
+
+	for(int i =0; i<dst_width; i=i+3){
+	    for(int j=0; j<dst_height; j++){
+		cv::Mat dst<int>(i,j) = cv::Mat R<int>(i,j)
+		cv::Mat dst<int>(i+1,j) = cv::Mat G<int>(i,j)
+		cv::Mat dst<int>(i+2,j) = cv::Mat B<int>(i,j)
     // if success
     return 0
 
